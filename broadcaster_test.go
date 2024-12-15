@@ -10,11 +10,11 @@ func TestBroadcast(t *testing.T) {
 	b := NewBroadcaster()
 
 	done := make(chan bool, 2)
-	b.Wait(func() {
+	b.Go(func() {
 		log.Println("function 1 finished")
 		done <- true
 	})
-	b.Wait(func() {
+	b.Go(func() {
 		log.Println("function 2 finished")
 		done <- true
 	})
@@ -32,11 +32,11 @@ func TestLateBroadcast(t *testing.T) {
 	b := NewBroadcaster()
 
 	done := make(chan bool, 2)
-	b.Wait(func() {
+	b.Go(func() {
 		log.Println("function 1 finished")
 		done <- true
 	})
-	b.Wait(func() {
+	b.Go(func() {
 		log.Println("function 2 finished")
 		done <- true
 	})

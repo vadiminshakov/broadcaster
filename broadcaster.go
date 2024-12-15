@@ -28,13 +28,12 @@ func (b *Broadcaster) Go(fn func()) {
 	b.wg.Add(1)
 	go func() {
 		b.cond.L.Lock()
-		defer b.cond.L.Unlock()
-		defer b.wg.Done()
 
 		for !b.signaled {
 			b.cond.Wait()
 		}
 		fn()
+
 		b.cond.L.Unlock()
 		b.wg.Done()
 	}()
